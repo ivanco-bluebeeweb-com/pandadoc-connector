@@ -1,0 +1,34 @@
+"""Entrypoint for the web-kernel and CLI tools (imperal validate/build).
+
+Sets up sys.path, purges stale module cache, then imports ext/chat and all
+handler modules so their decorators register on the same Extension instance
+-- same pattern as CircleCI Connector's / GitLab CI/CD Connector's main.py.
+"""
+
+import os
+import sys
+
+_EXT_DIR = os.path.dirname(os.path.abspath(__file__))
+if _EXT_DIR not in sys.path:
+    sys.path.insert(0, _EXT_DIR)
+
+_LOCAL = (
+    "app", "schemas", "pandadoc_client",
+    "handlers_connection", "handlers_documents", "handlers_templates",
+    "handlers_fields_recipients", "handlers_contacts_members",
+    "handlers_webhooks_catalog", "handlers_bulk_audit",
+    "panels", "panels_settings",
+)
+for _mod in _LOCAL:
+    sys.modules.pop(_mod, None)
+
+from app import ext, chat  # noqa: E402,F401
+import handlers_connection  # noqa: E402,F401
+import handlers_documents  # noqa: E402,F401
+import handlers_templates  # noqa: E402,F401
+import handlers_fields_recipients  # noqa: E402,F401
+import handlers_contacts_members  # noqa: E402,F401
+import handlers_webhooks_catalog  # noqa: E402,F401
+import handlers_bulk_audit  # noqa: E402,F401
+import panels  # noqa: E402,F401
+import panels_settings  # noqa: E402,F401
