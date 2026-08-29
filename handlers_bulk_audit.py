@@ -39,6 +39,7 @@ def _parse_ids(raw: str) -> list[str] | None:
     effects=["pandadoc.document.bulk_deleted"],
 )
 async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> ActionResult:
+    """Run the PandaDoc operation: bulk delete documents."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -71,6 +72,7 @@ async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> Actio
     effects=["pandadoc.document.bulk_sent"],
 )
 async def bulk_send_documents(ctx, params: BulkSendDocumentsParams) -> ActionResult:
+    """Run the PandaDoc operation: bulk send documents."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -113,6 +115,7 @@ async def bulk_send_documents(ctx, params: BulkSendDocumentsParams) -> ActionRes
     effects=["pandadoc.document.bulk_reminded"],
 )
 async def bulk_send_manual_reminders(ctx, params: BulkSendManualRemindersParams) -> ActionResult:
+    """Run the PandaDoc operation: bulk send manual reminders."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -148,6 +151,7 @@ async def bulk_send_manual_reminders(ctx, params: BulkSendManualRemindersParams)
     event="pandadoc-connector.audit_workspace_health",
 )
 async def audit_workspace_health(ctx, params: AuditWorkspaceHealthParams) -> ActionResult:
+    """Run the PandaDoc operation: audit workspace health."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err

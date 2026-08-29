@@ -123,6 +123,7 @@ async def connect_pandadoc(ctx, params: ConnectPandadocParams) -> ActionResult:
     effects=["pandadoc.provider.disconnected"],
 )
 async def disconnect_pandadoc(ctx, params: DisconnectPandadocParams) -> ActionResult:
+    """Run the PandaDoc operation: disconnect pandadoc."""
     connections = await _load_connections(ctx)
     if not connections:
         return ActionResult.error("No PandaDoc workspace is connected.", code="PANDADOC_ACCOUNT_MISSING")
@@ -146,5 +147,6 @@ async def disconnect_pandadoc(ctx, params: DisconnectPandadocParams) -> ActionRe
     event="pandadoc-connector.list_connections",
 )
 async def list_connections(ctx, params: NoParams) -> ActionResult:
+    """Run the PandaDoc operation: list connections."""
     connections = await _load_connections(ctx)
     return ActionResult.ok(ProviderConnectionList(items=[_connection_to_entity(c) for c in connections]))

@@ -37,6 +37,7 @@ from schemas import (
     event="pandadoc-connector.get_document_fields",
 )
 async def get_document_fields(ctx, params: GetDocumentFieldsParams) -> ActionResult:
+    """Run the PandaDoc operation: get document fields."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -56,6 +57,7 @@ async def get_document_fields(ctx, params: GetDocumentFieldsParams) -> ActionRes
     effects=["pandadoc.document.fields_updated"],
 )
 async def update_document_fields(ctx, params: UpdateDocumentFieldsParams) -> ActionResult:
+    """Run the PandaDoc operation: update document fields."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -76,6 +78,7 @@ async def update_document_fields(ctx, params: UpdateDocumentFieldsParams) -> Act
     event="pandadoc-connector.list_document_recipients",
 )
 async def list_document_recipients(ctx, params: ListDocumentRecipientsParams) -> ActionResult:
+    """Run the PandaDoc operation: list document recipients."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -100,6 +103,7 @@ async def list_document_recipients(ctx, params: ListDocumentRecipientsParams) ->
     effects=["pandadoc.document.recipient_added"],
 )
 async def add_document_recipient(ctx, params: AddDocumentRecipientParams) -> ActionResult:
+    """Run the PandaDoc operation: add document recipient."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -117,6 +121,7 @@ async def add_document_recipient(ctx, params: AddDocumentRecipientParams) -> Act
     effects=["pandadoc.document.recipient_updated"],
 )
 async def update_document_recipient(ctx, params: UpdateDocumentRecipientParams) -> ActionResult:
+    """Run the PandaDoc operation: update document recipient."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -139,6 +144,7 @@ async def update_document_recipient(ctx, params: UpdateDocumentRecipientParams) 
     effects=["pandadoc.document.recipient_deleted"],
 )
 async def delete_document_recipient(ctx, params: DeleteDocumentRecipientParams) -> ActionResult:
+    """Run the PandaDoc operation: delete document recipient."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -156,6 +162,7 @@ async def delete_document_recipient(ctx, params: DeleteDocumentRecipientParams) 
     effects=["pandadoc.document.reminder_sent"],
 )
 async def send_manual_reminder(ctx, params: SendManualReminderParams) -> ActionResult:
+    """Run the PandaDoc operation: send manual reminder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -172,6 +179,7 @@ async def send_manual_reminder(ctx, params: SendManualReminderParams) -> ActionR
     event="pandadoc-connector.get_document_auto_reminder_settings",
 )
 async def get_document_auto_reminder_settings(ctx, params: GetAutoReminderSettingsParams) -> ActionResult:
+    """Run the PandaDoc operation: get document auto reminder settings."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -189,6 +197,7 @@ async def get_document_auto_reminder_settings(ctx, params: GetAutoReminderSettin
     effects=["pandadoc.document.auto_reminders_updated"],
 )
 async def update_document_auto_reminder_settings(ctx, params: UpdateAutoReminderSettingsParams) -> ActionResult:
+    """Run the PandaDoc operation: update document auto reminder settings."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -210,6 +219,7 @@ async def update_document_auto_reminder_settings(ctx, params: UpdateAutoReminder
     event="pandadoc-connector.get_document_auto_reminder_status",
 )
 async def get_document_auto_reminder_status(ctx, params: GetAutoReminderStatusParams) -> ActionResult:
+    """Run the PandaDoc operation: get document auto reminder status."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -227,6 +237,7 @@ async def get_document_auto_reminder_status(ctx, params: GetAutoReminderStatusPa
     event="pandadoc-connector.list_document_attachments",
 )
 async def list_document_attachments(ctx, params: ListDocumentAttachmentsParams) -> ActionResult:
+    """Run the PandaDoc operation: list document attachments."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -247,6 +258,7 @@ async def list_document_attachments(ctx, params: ListDocumentAttachmentsParams) 
     effects=["pandadoc.document.attachment_added"],
 )
 async def add_document_attachment(ctx, params: AddDocumentAttachmentParams) -> ActionResult:
+    """Run the PandaDoc operation: add document attachment."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -264,6 +276,7 @@ async def add_document_attachment(ctx, params: AddDocumentAttachmentParams) -> A
     effects=["pandadoc.document.attachment_deleted"],
 )
 async def delete_document_attachment(ctx, params: DeleteDocumentAttachmentParams) -> ActionResult:
+    """Run the PandaDoc operation: delete document attachment."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -280,6 +293,7 @@ async def delete_document_attachment(ctx, params: DeleteDocumentAttachmentParams
     event="pandadoc-connector.list_document_sections",
 )
 async def list_document_sections(ctx, params: ListDocumentSectionsParams) -> ActionResult:
+    """Run the PandaDoc operation: list document sections."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -300,6 +314,7 @@ async def list_document_sections(ctx, params: ListDocumentSectionsParams) -> Act
     effects=["pandadoc.document.section_added"],
 )
 async def add_document_section_from_template(ctx, params: AddDocumentSectionFromTemplateParams) -> ActionResult:
+    """Run the PandaDoc operation: add document section from template."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -316,6 +331,7 @@ async def add_document_section_from_template(ctx, params: AddDocumentSectionFrom
     event="pandadoc-connector.list_linked_objects",
 )
 async def list_linked_objects(ctx, params: ListLinkedObjectsParams) -> ActionResult:
+    """Run the PandaDoc operation: list linked objects."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -336,6 +352,7 @@ async def list_linked_objects(ctx, params: ListLinkedObjectsParams) -> ActionRes
     effects=["pandadoc.document.object_linked"],
 )
 async def link_object_to_document(ctx, params: LinkObjectToDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: link object to document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -356,6 +373,7 @@ async def link_object_to_document(ctx, params: LinkObjectToDocumentParams) -> Ac
     effects=["pandadoc.document.object_unlinked"],
 )
 async def unlink_object_from_document(ctx, params: UnlinkObjectFromDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: unlink object from document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err

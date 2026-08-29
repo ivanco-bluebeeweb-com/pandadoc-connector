@@ -37,6 +37,7 @@ def _webhook_entity(w: dict) -> WebhookSubscription:
     event="pandadoc-connector.list_webhooks",
 )
 async def list_webhooks(ctx, params: ListWebhooksParams) -> ActionResult:
+    """Run the PandaDoc operation: list webhooks."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -54,6 +55,7 @@ async def list_webhooks(ctx, params: ListWebhooksParams) -> ActionResult:
     event="pandadoc-connector.get_webhook",
 )
 async def get_webhook(ctx, params: GetWebhookParams) -> ActionResult:
+    """Run the PandaDoc operation: get webhook."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -71,6 +73,7 @@ async def get_webhook(ctx, params: GetWebhookParams) -> ActionResult:
     event="pandadoc-connector.create_webhook", effects=["pandadoc.webhook.created"],
 )
 async def create_webhook(ctx, params: CreateWebhookParams) -> ActionResult:
+    """Run the PandaDoc operation: create webhook."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -90,6 +93,7 @@ async def create_webhook(ctx, params: CreateWebhookParams) -> ActionResult:
     event="pandadoc-connector.update_webhook", effects=["pandadoc.webhook.updated"],
 )
 async def update_webhook(ctx, params: UpdateWebhookParams) -> ActionResult:
+    """Run the PandaDoc operation: update webhook."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -114,6 +118,7 @@ async def update_webhook(ctx, params: UpdateWebhookParams) -> ActionResult:
     event="pandadoc-connector.delete_webhook", effects=["pandadoc.webhook.deleted"],
 )
 async def delete_webhook(ctx, params: DeleteWebhookParams) -> ActionResult:
+    """Run the PandaDoc operation: delete webhook."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -131,6 +136,7 @@ async def delete_webhook(ctx, params: DeleteWebhookParams) -> ActionResult:
     event="pandadoc-connector.list_webhook_event_types",
 )
 async def list_webhook_event_types(ctx, params: ListWebhookEventsParams) -> ActionResult:
+    """Run the PandaDoc operation: list webhook event types."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -154,6 +160,7 @@ def _catalog_entity(c: dict) -> CatalogItem:
     event="pandadoc-connector.list_catalog_items",
 )
 async def list_catalog_items(ctx, params: ListCatalogItemsParams) -> ActionResult:
+    """Run the PandaDoc operation: list catalog items."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -172,6 +179,7 @@ async def list_catalog_items(ctx, params: ListCatalogItemsParams) -> ActionResul
     event="pandadoc-connector.create_catalog_item", effects=["pandadoc.catalog_item.created"],
 )
 async def create_catalog_item(ctx, params: CreateCatalogItemParams) -> ActionResult:
+    """Run the PandaDoc operation: create catalog item."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -193,6 +201,7 @@ async def create_catalog_item(ctx, params: CreateCatalogItemParams) -> ActionRes
     event="pandadoc-connector.get_catalog_item",
 )
 async def get_catalog_item(ctx, params: GetCatalogItemParams) -> ActionResult:
+    """Run the PandaDoc operation: get catalog item."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -210,6 +219,7 @@ async def get_catalog_item(ctx, params: GetCatalogItemParams) -> ActionResult:
     event="pandadoc-connector.update_catalog_item", effects=["pandadoc.catalog_item.updated"],
 )
 async def update_catalog_item(ctx, params: UpdateCatalogItemParams) -> ActionResult:
+    """Run the PandaDoc operation: update catalog item."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -230,6 +240,7 @@ async def update_catalog_item(ctx, params: UpdateCatalogItemParams) -> ActionRes
     event="pandadoc-connector.delete_catalog_item", effects=["pandadoc.catalog_item.deleted"],
 )
 async def delete_catalog_item(ctx, params: DeleteCatalogItemParams) -> ActionResult:
+    """Run the PandaDoc operation: delete catalog item."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -247,6 +258,7 @@ async def delete_catalog_item(ctx, params: DeleteCatalogItemParams) -> ActionRes
     event="pandadoc-connector.list_api_logs",
 )
 async def list_api_logs(ctx, params: ListApiLogsParams) -> ActionResult:
+    """Run the PandaDoc operation: list api logs."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err

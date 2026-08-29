@@ -38,6 +38,7 @@ from schemas import (
     data_model=DocumentList, event="pandadoc-connector.list_documents",
 )
 async def list_documents(ctx, params: ListDocumentsParams) -> ActionResult:
+    """Run the PandaDoc operation: list documents."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -67,6 +68,7 @@ async def list_documents(ctx, params: ListDocumentsParams) -> ActionResult:
     event="pandadoc-connector.create_document", effects=["pandadoc.document.created"],
 )
 async def create_document(ctx, params: CreateDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: create document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -91,6 +93,7 @@ async def create_document(ctx, params: CreateDocumentParams) -> ActionResult:
     event="pandadoc-connector.create_document_from_upload", effects=["pandadoc.document.created"],
 )
 async def create_document_from_upload(ctx, params: CreateDocumentFromUploadParams) -> ActionResult:
+    """Run the PandaDoc operation: create document from upload."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -119,6 +122,7 @@ async def create_document_from_upload(ctx, params: CreateDocumentFromUploadParam
     event="pandadoc-connector.get_document_status",
 )
 async def get_document_status(ctx, params: GetDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: get document status."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -135,6 +139,7 @@ async def get_document_status(ctx, params: GetDocumentParams) -> ActionResult:
     event="pandadoc-connector.delete_document", effects=["pandadoc.document.deleted"],
 )
 async def delete_document(ctx, params: DeleteDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: delete document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -152,6 +157,7 @@ async def delete_document(ctx, params: DeleteDocumentParams) -> ActionResult:
     effects=["pandadoc.document.bulk_deleted"],
 )
 async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> ActionResult:
+    """Run the PandaDoc operation: bulk delete documents."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -175,6 +181,7 @@ async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> Actio
     effects=["pandadoc.document.updated"],
 )
 async def update_document(ctx, params: UpdateDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: update document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -198,6 +205,7 @@ async def update_document(ctx, params: UpdateDocumentParams) -> ActionResult:
     event="pandadoc-connector.get_document_details",
 )
 async def get_document_details(ctx, params: GetDocumentDetailsParams) -> ActionResult:
+    """Run the PandaDoc operation: get document details."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -218,6 +226,7 @@ async def get_document_details(ctx, params: GetDocumentDetailsParams) -> ActionR
     effects=["pandadoc.document.sent"],
 )
 async def send_document(ctx, params: SendDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: send document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -244,6 +253,7 @@ async def send_document(ctx, params: SendDocumentParams) -> ActionResult:
     event="pandadoc-connector.change_document_status", effects=["pandadoc.document.status_changed"],
 )
 async def change_document_status(ctx, params: ChangeDocumentStatusParams) -> ActionResult:
+    """Run the PandaDoc operation: change document status."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -263,6 +273,7 @@ async def change_document_status(ctx, params: ChangeDocumentStatusParams) -> Act
     event="pandadoc-connector.download_document",
 )
 async def download_document(ctx, params: DownloadDocumentParams) -> ActionResult:
+    """Run the PandaDoc operation: download document."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -280,6 +291,7 @@ async def download_document(ctx, params: DownloadDocumentParams) -> ActionResult
     event="pandadoc-connector.get_document_esign_disclosure",
 )
 async def get_document_esign_disclosure(ctx, params: GetEsignDisclosureParams) -> ActionResult:
+    """Run the PandaDoc operation: get document esign disclosure."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -296,6 +308,7 @@ async def get_document_esign_disclosure(ctx, params: GetEsignDisclosureParams) -
     event="pandadoc-connector.get_document_audit_trail",
 )
 async def get_document_audit_trail(ctx, params: GetAuditTrailParams) -> ActionResult:
+    """Run the PandaDoc operation: get document audit trail."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -316,6 +329,7 @@ async def get_document_audit_trail(ctx, params: GetAuditTrailParams) -> ActionRe
     event="pandadoc-connector.get_document_settings",
 )
 async def get_document_settings(ctx, params: GetDocumentSettingsParams) -> ActionResult:
+    """Run the PandaDoc operation: get document settings."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -333,6 +347,7 @@ async def get_document_settings(ctx, params: GetDocumentSettingsParams) -> Actio
     effects=["pandadoc.document.settings_updated"],
 )
 async def update_document_settings(ctx, params: UpdateDocumentSettingsParams) -> ActionResult:
+    """Run the PandaDoc operation: update document settings."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -353,6 +368,7 @@ async def update_document_settings(ctx, params: UpdateDocumentSettingsParams) ->
     event="pandadoc-connector.move_document_to_folder", effects=["pandadoc.document.moved"],
 )
 async def move_document_to_folder(ctx, params: MoveDocumentToFolderParams) -> ActionResult:
+    """Run the PandaDoc operation: move document to folder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -369,6 +385,7 @@ async def move_document_to_folder(ctx, params: MoveDocumentToFolderParams) -> Ac
     event="pandadoc-connector.get_document_ownership",
 )
 async def get_document_ownership(ctx, params: GetDocumentOwnershipParams) -> ActionResult:
+    """Run the PandaDoc operation: get document ownership."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -385,6 +402,7 @@ async def get_document_ownership(ctx, params: GetDocumentOwnershipParams) -> Act
     event="pandadoc-connector.update_document_ownership", effects=["pandadoc.document.ownership_changed"],
 )
 async def update_document_ownership(ctx, params: UpdateDocumentOwnershipParams) -> ActionResult:
+    """Run the PandaDoc operation: update document ownership."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err

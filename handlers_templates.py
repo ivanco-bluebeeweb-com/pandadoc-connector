@@ -29,6 +29,7 @@ from schemas import (
     data_model=TemplateList, event="pandadoc-connector.list_templates",
 )
 async def list_templates(ctx, params: ListTemplatesParams) -> ActionResult:
+    """Run the PandaDoc operation: list templates."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -49,6 +50,7 @@ async def list_templates(ctx, params: ListTemplatesParams) -> ActionResult:
     event="pandadoc-connector.get_template",
 )
 async def get_template(ctx, params: GetTemplateParams) -> ActionResult:
+    """Run the PandaDoc operation: get template."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -69,6 +71,7 @@ async def get_template(ctx, params: GetTemplateParams) -> ActionResult:
     event="pandadoc-connector.update_template", effects=["pandadoc.template.updated"],
 )
 async def update_template(ctx, params: UpdateTemplateParams) -> ActionResult:
+    """Run the PandaDoc operation: update template."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -90,6 +93,7 @@ async def update_template(ctx, params: UpdateTemplateParams) -> ActionResult:
     event="pandadoc-connector.delete_template", effects=["pandadoc.template.deleted"],
 )
 async def delete_template(ctx, params: DeleteTemplateParams) -> ActionResult:
+    """Run the PandaDoc operation: delete template."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -106,6 +110,7 @@ async def delete_template(ctx, params: DeleteTemplateParams) -> ActionResult:
     event="pandadoc-connector.duplicate_template", effects=["pandadoc.template.duplicated"],
 )
 async def duplicate_template(ctx, params: DuplicateTemplateParams) -> ActionResult:
+    """Run the PandaDoc operation: duplicate template."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -122,6 +127,7 @@ async def duplicate_template(ctx, params: DuplicateTemplateParams) -> ActionResu
     event="pandadoc-connector.list_forms",
 )
 async def list_forms(ctx, params: ListFormsParams) -> ActionResult:
+    """Run the PandaDoc operation: list forms."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -141,6 +147,7 @@ async def list_forms(ctx, params: ListFormsParams) -> ActionResult:
     event="pandadoc-connector.get_form",
 )
 async def get_form(ctx, params: GetFormParams) -> ActionResult:
+    """Run the PandaDoc operation: get form."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -158,6 +165,7 @@ async def get_form(ctx, params: GetFormParams) -> ActionResult:
     data_model=ContentLibraryItemList, event="pandadoc-connector.list_content_library_items",
 )
 async def list_content_library_items(ctx, params: ListContentLibraryItemsParams) -> ActionResult:
+    """Run the PandaDoc operation: list content library items."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -177,6 +185,7 @@ async def list_content_library_items(ctx, params: ListContentLibraryItemsParams)
     event="pandadoc-connector.get_content_library_item",
 )
 async def get_content_library_item(ctx, params: GetContentLibraryItemParams) -> ActionResult:
+    """Run the PandaDoc operation: get content library item."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -193,6 +202,7 @@ async def get_content_library_item(ctx, params: GetContentLibraryItemParams) -> 
     event="pandadoc-connector.list_document_folders",
 )
 async def list_document_folders(ctx, params: ListDocumentFoldersParams) -> ActionResult:
+    """Run the PandaDoc operation: list document folders."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -210,6 +220,7 @@ async def list_document_folders(ctx, params: ListDocumentFoldersParams) -> Actio
     event="pandadoc-connector.create_document_folder", effects=["pandadoc.folder.created"],
 )
 async def create_document_folder(ctx, params: CreateDocumentFolderParams) -> ActionResult:
+    """Run the PandaDoc operation: create document folder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -229,6 +240,7 @@ async def create_document_folder(ctx, params: CreateDocumentFolderParams) -> Act
     event="pandadoc-connector.rename_document_folder", effects=["pandadoc.folder.renamed"],
 )
 async def rename_document_folder(ctx, params: RenameDocumentFolderParams) -> ActionResult:
+    """Run the PandaDoc operation: rename document folder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -245,6 +257,7 @@ async def rename_document_folder(ctx, params: RenameDocumentFolderParams) -> Act
     event="pandadoc-connector.list_template_folders",
 )
 async def list_template_folders(ctx, params: ListTemplateFoldersParams) -> ActionResult:
+    """Run the PandaDoc operation: list template folders."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -262,6 +275,7 @@ async def list_template_folders(ctx, params: ListTemplateFoldersParams) -> Actio
     event="pandadoc-connector.create_template_folder", effects=["pandadoc.folder.created"],
 )
 async def create_template_folder(ctx, params: CreateTemplateFolderParams) -> ActionResult:
+    """Run the PandaDoc operation: create template folder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -281,6 +295,7 @@ async def create_template_folder(ctx, params: CreateTemplateFolderParams) -> Act
     event="pandadoc-connector.rename_template_folder", effects=["pandadoc.folder.renamed"],
 )
 async def rename_template_folder(ctx, params: RenameTemplateFolderParams) -> ActionResult:
+    """Run the PandaDoc operation: rename template folder."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err

@@ -21,6 +21,7 @@ from schemas import (
     data_model=ContactList, event="pandadoc-connector.list_contacts",
 )
 async def list_contacts(ctx, params: ListContactsParams) -> ActionResult:
+    """Run the PandaDoc operation: list contacts."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -45,6 +46,7 @@ async def list_contacts(ctx, params: ListContactsParams) -> ActionResult:
     effects=["pandadoc.contact.created"],
 )
 async def create_contact(ctx, params: CreateContactParams) -> ActionResult:
+    """Run the PandaDoc operation: create contact."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -70,6 +72,7 @@ async def create_contact(ctx, params: CreateContactParams) -> ActionResult:
     event="pandadoc-connector.update_contact", effects=["pandadoc.contact.updated"],
 )
 async def update_contact(ctx, params: UpdateContactParams) -> ActionResult:
+    """Run the PandaDoc operation: update contact."""
     import json
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
@@ -96,6 +99,7 @@ async def update_contact(ctx, params: UpdateContactParams) -> ActionResult:
     event="pandadoc-connector.delete_contact", effects=["pandadoc.contact.deleted"],
 )
 async def delete_contact(ctx, params: DeleteContactParams) -> ActionResult:
+    """Run the PandaDoc operation: delete contact."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
@@ -112,6 +116,7 @@ async def delete_contact(ctx, params: DeleteContactParams) -> ActionResult:
     event="pandadoc-connector.list_members",
 )
 async def list_members(ctx, params: ListMembersParams) -> ActionResult:
+    """Run the PandaDoc operation: list members."""
     conn, key, err = await resolve_or_error(ctx, params.connection_id)
     if err:
         return err
