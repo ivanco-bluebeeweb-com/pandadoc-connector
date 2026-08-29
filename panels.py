@@ -112,6 +112,9 @@ async def pandadoc_connect_panel(ctx, **kwargs) -> object:
         ui.Text("Connected workspaces", variant="subtitle"),
         _connections_section(connections),
         ui.Divider(),
+        ui.Button("View workspace health", variant="primary", size="sm", full_width=True,
+                  icon="FileText", on_click=ui.Call("__panel__pandadoc_center")),
+        ui.Divider(),
         _connect_section(),
         ui.Divider(),
         _settings_button(),
@@ -162,7 +165,34 @@ async def pandadoc_center_panel(ctx, **kwargs) -> object:
     slot="center" panel is registered but the Panel app never fetches it
     at session-init without that flag. Text is the shared canonical
     wording -- must stay identical across every app in this situation."""
-    return ui.Empty(
-        message="Nothing to show here -- this app is managed entirely from the sidebar.",
-        icon="👈",
-    )
+    connections = await h._load_connections(ctx)
+    if not connections:
+        return ui.Empty(message="Connect a PandaDoc workspace from the sidebar to see it here.", icon="📄")
+
+    import handlers_bulk_audit as ha
+    from schemas import AuditWorkspaceHealthParams
+    conn_id = connections[0].get("id", "")
+    result = await ha.audit_workspace_health(ctx, AuditWorkspaceHealthParams(connection_id=conn_id))
+    body: list[ui.UINode] = [ui.Text("Workspace health", variant="subtitle")]
+    if result.success and result.data:
+        r = result.data
+        body.append(ui.Stats(children=[
+            ui.Stat(label="Sampled", value=str(r.total_sampled)),
+            ui.Stat(label="Overdue unsigned", value=str(r.overdue_unsigned_count)),
+            ui.Stat(label="No owner", value=str(r.documents_without_owner_count)),
+        ]))
+        body.append(ui.KeyValue(columns=2, items=[
+            {"key": "Draft", "value": str(r.draft_count)},
+            {"key": "Sent", "value": str(r.sent_count)},
+            {"key": "Viewed", "value": str(r.viewed_count)},
+            {"key": "Completed", "value": str(r.completed_count)},
+            {"key": "Declined", "value": str(r.declined_count)},
+            {"key": "Expired", "value": str(r.expired_count)},
+        ]))
+        if r.summary:
+            body.append(ui.Divider())
+            body.append(ui.Text(r.summary, variant="body"))
+    else:
+        body.append(ui.Text("Could not load the workspace health audit.", variant="caption"))
+
+    return ui.Stack(direction="v", gap=3, align="stretch", children=body)
