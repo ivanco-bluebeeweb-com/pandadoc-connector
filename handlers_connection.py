@@ -94,10 +94,10 @@ async def connect_pandadoc(ctx, params: ConnectPandadocParams) -> ActionResult:
     if existing:
         existing.update({"label": params.label.strip() or existing.get("label", "")})
         await _save_connections(ctx, connections)
-        return ActionResult.ok(
+        return ActionResult.success(
             _connection_to_entity(existing),
             refresh_panels=["pandadoc_connect", "pandadoc_settings"],
-        )
+        ), summary="Pandadoc connected."
 
     new_conn = {
         "id": str(uuid.uuid4()),
@@ -106,10 +106,10 @@ async def connect_pandadoc(ctx, params: ConnectPandadocParams) -> ActionResult:
     }
     connections.append(new_conn)
     await _save_connections(ctx, connections)
-    return ActionResult.ok(
+    return ActionResult.success(
         _connection_to_entity(new_conn),
         refresh_panels=["pandadoc_connect", "pandadoc_settings"],
-    )
+    ), summary="Pandadoc connected."
 
 
 @chat.function(
@@ -132,10 +132,10 @@ async def disconnect_pandadoc(ctx, params: DisconnectPandadocParams) -> ActionRe
     if len(remaining) == len(connections):
         return ActionResult.error("Connection not found.", code="PANDADOC_CONNECTION_NOT_FOUND")
     await _save_connections(ctx, remaining)
-    return ActionResult.ok(
+    return ActionResult.success(
         DeleteResult(id=target_id, deleted=True),
         refresh_panels=["pandadoc_connect", "pandadoc_settings"],
-    )
+    ), summary="Pandadoc disconnected."
 
 
 @chat.function(
@@ -149,4 +149,4 @@ async def disconnect_pandadoc(ctx, params: DisconnectPandadocParams) -> ActionRe
 async def list_connections(ctx, params: NoParams) -> ActionResult:
     """Run the PandaDoc operation: list connections."""
     connections = await _load_connections(ctx)
-    return ActionResult.ok(ProviderConnectionList(items=[_connection_to_entity(c) for c in connections]))
+    return ActionResult.success(ProviderConnectionList(items=[_connection_to_entity(c) for c in connections])), summary="Connections listed."
