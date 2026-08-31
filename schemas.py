@@ -35,6 +35,8 @@ class ProviderConnection(sdl.Entity):
 
 
 class ProviderConnectionList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[ProviderConnection] = []
 
 
@@ -43,6 +45,7 @@ class DisconnectPandadocParams(BaseModel):
 
 
 class DeleteResult(sdl.Entity):
+    title: str = ""
     id: str = ""
     deleted: bool = False
 
@@ -68,6 +71,7 @@ class ListDocumentsParams(_Scoped):
 
 
 class Document(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     status: str = ""
@@ -81,6 +85,8 @@ class Document(sdl.Entity):
 
 
 class DocumentList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[Document] = []
 
 
@@ -111,12 +117,15 @@ class BulkDeleteDocumentsParams(_Scoped):
 
 
 class BulkResultItem(sdl.Entity):
+    title: str = ""
     id: str = ""
     ok: bool = False
     error: str = ""
 
 
 class BulkResult(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[BulkResultItem] = []
     succeeded: int = 0
     failed: int = 0
@@ -136,6 +145,7 @@ class UpdateDocumentParams(GetDocumentParams):
 
 
 class DocumentDetails(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     status: str = ""
@@ -166,6 +176,8 @@ class DownloadDocumentParams(GetDocumentParams):
 
 
 class DownloadResult(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     content_type: str = ""
     base64_content: str = ""
@@ -176,6 +188,8 @@ class GetEsignDisclosureParams(GetDocumentParams):
 
 
 class EsignDisclosure(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     content: str = ""
 
@@ -185,6 +199,8 @@ class GetAuditTrailParams(GetDocumentParams):
 
 
 class AuditTrailEvent(sdl.Entity):
+    id: str = ""
+    title: str = ""
     event: str = ""
     created_at: str = ""
     actor_email: str = ""
@@ -192,6 +208,8 @@ class AuditTrailEvent(sdl.Entity):
 
 
 class AuditTrailList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[AuditTrailEvent] = []
 
 
@@ -200,6 +218,8 @@ class GetDocumentSettingsParams(GetDocumentParams):
 
 
 class DocumentSettings(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     settings_json: str = ""
 
@@ -217,6 +237,8 @@ class GetDocumentOwnershipParams(GetDocumentParams):
 
 
 class DocumentOwnership(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     member_id: str = ""
     member_email: str = ""
@@ -236,6 +258,8 @@ class GetDocumentFieldsParams(GetDocumentParams):
 
 
 class DocumentField(sdl.Entity):
+    id: str = ""
+    title: str = ""
     field_id: str = ""
     name: str = ""
     value: str = ""
@@ -243,6 +267,8 @@ class DocumentField(sdl.Entity):
 
 
 class DocumentFieldList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[DocumentField] = []
 
 
@@ -255,6 +281,8 @@ class ListDocumentRecipientsParams(GetDocumentParams):
 
 
 class DocumentRecipient(sdl.Entity):
+    id: str = ""
+    title: str = ""
     recipient_id: str = ""
     email: str = ""
     first_name: str = ""
@@ -265,6 +293,8 @@ class DocumentRecipient(sdl.Entity):
 
 
 class DocumentRecipientList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[DocumentRecipient] = []
 
 
@@ -297,6 +327,8 @@ class GetAutoReminderSettingsParams(GetDocumentParams):
 
 
 class AutoReminderSettings(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     enabled: bool = False
     settings_json: str = ""
@@ -312,6 +344,8 @@ class GetAutoReminderStatusParams(GetDocumentParams):
 
 
 class AutoReminderStatus(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     status: str = ""
 
@@ -321,12 +355,16 @@ class ListDocumentAttachmentsParams(GetDocumentParams):
 
 
 class DocumentAttachment(sdl.Entity):
+    id: str = ""
+    title: str = ""
     attachment_id: str = ""
     name: str = ""
     size: int = 0
 
 
 class DocumentAttachmentList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[DocumentAttachment] = []
 
 
@@ -344,12 +382,16 @@ class ListDocumentSectionsParams(GetDocumentParams):
 
 
 class DocumentSection(sdl.Entity):
+    id: str = ""
+    title: str = ""
     section_id: str = ""
     name: str = ""
     status: str = ""
 
 
 class DocumentSectionList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[DocumentSection] = []
 
 
@@ -363,12 +405,16 @@ class ListLinkedObjectsParams(GetDocumentParams):
 
 
 class LinkedObject(sdl.Entity):
+    id: str = ""
+    title: str = ""
     linked_object_id: str = ""
     provider: str = ""
     external_id: str = ""
 
 
 class LinkedObjectList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[LinkedObject] = []
 
 
@@ -399,6 +445,8 @@ class GetAutoReminderSettingsParams(GetDocumentParams):
 
 
 class AutoReminderSettings(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     enabled: bool = False
     settings_json: str = ""
@@ -414,6 +462,8 @@ class GetAutoReminderStatusParams(GetDocumentParams):
 
 
 class AutoReminderStatus(sdl.Entity):
+    id: str = ""
+    title: str = ""
     document_id: str = ""
     status: str = ""
 
@@ -431,6 +481,7 @@ class ListTemplatesParams(_Scoped):
 
 
 class TemplateSummary(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     date_created: str = ""
@@ -438,6 +489,8 @@ class TemplateSummary(sdl.Entity):
 
 
 class TemplateList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[TemplateSummary] = []
 
 
@@ -446,6 +499,7 @@ class GetTemplateParams(_Scoped):
 
 
 class TemplateDetails(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     tags_csv: str = ""
@@ -478,12 +532,15 @@ class ListFormsParams(_Scoped):
 
 
 class FormSummary(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     date_created: str = ""
 
 
 class FormList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[FormSummary] = []
 
 
@@ -492,6 +549,7 @@ class GetFormParams(_Scoped):
 
 
 class FormDetails(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     fields_json: str = ""
@@ -504,12 +562,15 @@ class ListContentLibraryItemsParams(_Scoped):
 
 
 class ContentLibraryItemSummary(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     date_created: str = ""
 
 
 class ContentLibraryItemList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[ContentLibraryItemSummary] = []
 
 
@@ -518,6 +579,7 @@ class GetContentLibraryItemParams(_Scoped):
 
 
 class ContentLibraryItemDetails(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     tags_csv: str = ""
@@ -533,12 +595,15 @@ class ListDocumentFoldersParams(_Scoped):
 
 
 class FolderSummary(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     parent_uuid: str = ""
 
 
 class FolderList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[FolderSummary] = []
 
 
@@ -577,6 +642,7 @@ class ListContactsParams(_Scoped):
 
 
 class Contact(sdl.Entity):
+    title: str = ""
     id: str = ""
     email: str = ""
     first_name: str = ""
@@ -585,6 +651,8 @@ class Contact(sdl.Entity):
 
 
 class ContactList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[Contact] = []
 
 
@@ -616,6 +684,7 @@ class ListMembersParams(_Scoped):
 
 
 class WorkspaceMember(sdl.Entity):
+    title: str = ""
     id: str = ""
     email: str = ""
     first_name: str = ""
@@ -625,6 +694,8 @@ class WorkspaceMember(sdl.Entity):
 
 
 class WorkspaceMemberList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[WorkspaceMember] = []
 
 
@@ -638,6 +709,7 @@ class ListWebhooksParams(_Scoped):
 
 
 class WebhookSubscription(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     url: str = ""
@@ -646,6 +718,8 @@ class WebhookSubscription(sdl.Entity):
 
 
 class WebhookSubscriptionList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[WebhookSubscription] = []
 
 
@@ -676,6 +750,8 @@ class ListWebhookEventsParams(_Scoped):
 
 
 class WebhookEventType(sdl.Entity):
+    id: str = ""
+    title: str = ""
     name: str = ""
     description: str = ""
 
@@ -699,6 +775,8 @@ class CatalogItem(sdl.Entity):
 
 
 class CatalogItemList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[CatalogItem] = []
 
 
@@ -733,6 +811,8 @@ class ListApiLogsParams(_Scoped):
 
 
 class ApiLogEntry(sdl.Entity):
+    id: str = ""
+    title: str = ""
     time: str = ""
     status: int = 0
     method: str = ""
@@ -740,6 +820,8 @@ class ApiLogEntry(sdl.Entity):
 
 
 class ApiLogList(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[ApiLogEntry] = []
 
 
@@ -753,12 +835,15 @@ class BulkDeleteDocumentsParams(_Scoped):
 
 
 class BulkResultItem(sdl.Entity):
+    title: str = ""
     id: str = ""
     ok: bool = False
     error: str = ""
 
 
 class BulkResult(sdl.Entity):
+    id: str = ""
+    title: str = ""
     items: list[BulkResultItem] = []
     succeeded: int = 0
     failed: int = 0
@@ -781,6 +866,8 @@ class AuditWorkspaceHealthParams(_Scoped):
 
 
 class WorkspaceHealthReport(sdl.Entity):
+    id: str = ""
+    title: str = ""
     total_sampled: int = 0
     draft_count: int = 0
     sent_count: int = 0
@@ -802,6 +889,7 @@ DocumentSummary = Document
 
 
 class DocumentStatus(sdl.Entity):
+    title: str = ""
     id: str = ""
     name: str = ""
     status: str = ""
