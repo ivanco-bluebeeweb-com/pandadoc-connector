@@ -57,7 +57,7 @@ async def list_documents(ctx, params: ListDocumentsParams) -> ActionResult:
             id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
             date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
         ) for d in items
-    ])), summary="Documents listed."
+    ]), summary="Documents listed.")
 
 
 @chat.function(
@@ -83,7 +83,7 @@ async def create_document(ctx, params: CreateDocumentParams) -> ActionResult:
     return ActionResult.success(DocumentSummary(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
-    )), summary="Document created."
+    ), summary="Document created.")
 
 
 @chat.function(
@@ -113,7 +113,7 @@ async def create_document_from_upload(ctx, params: CreateDocumentFromUploadParam
     return ActionResult.success(DocumentSummary(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
-    )), summary="Document from upload created."
+    ), summary="Document from upload created.")
 
 
 @chat.function(
@@ -130,7 +130,7 @@ async def get_document_status(ctx, params: GetDocumentParams) -> ActionResult:
         d = await pd.get_document_status(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DOCUMENT_NOT_FOUND")
-    return ActionResult.success(DocumentStatus(id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""))), summary="Document status retrieved."
+    return ActionResult.success(DocumentStatus(id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", "")), summary="Document status retrieved.")
 
 
 @chat.function(
@@ -147,7 +147,7 @@ async def delete_document(ctx, params: DeleteDocumentParams) -> ActionResult:
         await pd.delete_document(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_DOCUMENT_FAILED")
-    return ActionResult.success(DeleteResult(id=params.document_id, deleted=True)), summary="Document deleted."
+    return ActionResult.success(DeleteResult(id=params.document_id, deleted=True), summary="Document deleted.")
 
 
 @chat.function(
@@ -171,7 +171,7 @@ async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> Actio
         await pd.bulk_delete_documents(ctx, key, ids)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_BULK_DELETE_FAILED")
-    return ActionResult.success(DeleteResult(id=",".join(ids), deleted=True)), summary="Bulk delete documents done."
+    return ActionResult.success(DeleteResult(id=",".join(ids), deleted=True), summary="Bulk delete documents done.")
 
 
 @chat.function(
@@ -196,7 +196,7 @@ async def update_document(ctx, params: UpdateDocumentParams) -> ActionResult:
     return ActionResult.success(DocumentSummary(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
-    )), summary="Document updated."
+    ), summary="Document updated.")
 
 
 @chat.function(
@@ -216,7 +216,7 @@ async def get_document_details(ctx, params: GetDocumentDetailsParams) -> ActionR
     return ActionResult.success(DocumentDetails(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         raw_json=json.dumps(d)[:8000],
-    )), summary="Document details retrieved."
+    ), summary="Document details retrieved.")
 
 
 @chat.function(
@@ -243,7 +243,7 @@ async def send_document(ctx, params: SendDocumentParams) -> ActionResult:
     return ActionResult.success(DocumentSummary(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
-    )), summary="Document send requested."
+    ), summary="Document send requested.")
 
 
 @chat.function(
@@ -264,7 +264,7 @@ async def change_document_status(ctx, params: ChangeDocumentStatusParams) -> Act
     return ActionResult.success(DocumentSummary(
         id=d.get("id", ""), name=d.get("name", ""), status=d.get("status", ""),
         date_created=d.get("date_created", ""), date_modified=d.get("date_modified", ""),
-    )), summary="Change document status done."
+    ), summary="Change document status done.")
 
 
 @chat.function(
@@ -282,7 +282,7 @@ async def download_document(ctx, params: DownloadDocumentParams) -> ActionResult
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DOWNLOAD_FAILED")
     b64 = base64.b64encode(content).decode() if isinstance(content, (bytes, bytearray)) else ""
-    return ActionResult.success(DownloadedDocument(document_id=params.document_id, content_b64=b64)), summary="Download document done."
+    return ActionResult.success(DownloadedDocument(document_id=params.document_id, content_b64=b64), summary="Download document done.")
 
 
 @chat.function(
@@ -299,7 +299,7 @@ async def get_document_esign_disclosure(ctx, params: GetEsignDisclosureParams) -
         d = await pd.get_document_esign_disclosure(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_ESIGN_DISCLOSURE_FAILED")
-    return ActionResult.success(EsignDisclosure(document_id=params.document_id, text=d.get("text", "") if isinstance(d, dict) else "")), summary="Document esign disclosure retrieved."
+    return ActionResult.success(EsignDisclosure(document_id=params.document_id, text=d.get("text", "") if isinstance(d, dict) else ""), summary="Document esign disclosure retrieved.")
 
 
 @chat.function(
@@ -320,7 +320,7 @@ async def get_document_audit_trail(ctx, params: GetAuditTrailParams) -> ActionRe
     return ActionResult.success(AuditTrailList(items=[
         AuditTrailEntry(event=e.get("event", ""), actor=e.get("actor", ""), timestamp=e.get("timestamp", ""))
         for e in events
-    ])), summary="Document audit trail retrieved."
+    ]), summary="Document audit trail retrieved.")
 
 
 @chat.function(
@@ -337,7 +337,7 @@ async def get_document_settings(ctx, params: GetDocumentSettingsParams) -> Actio
         d = await pd.get_document_settings(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_SETTINGS_FAILED")
-    return ActionResult.success(DocumentSettings(document_id=params.document_id, settings_json=json.dumps(d)[:4000])), summary="Document settings retrieved."
+    return ActionResult.success(DocumentSettings(document_id=params.document_id, settings_json=json.dumps(d)[:4000]), summary="Document settings retrieved.")
 
 
 @chat.function(
@@ -359,7 +359,7 @@ async def update_document_settings(ctx, params: UpdateDocumentSettingsParams) ->
         d = await pd.update_document_settings(ctx, key, params.document_id, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_SETTINGS_UPDATE_FAILED")
-    return ActionResult.success(DocumentSettings(document_id=params.document_id, settings_json=json.dumps(d)[:4000])), summary="Document settings updated."
+    return ActionResult.success(DocumentSettings(document_id=params.document_id, settings_json=json.dumps(d)[:4000]), summary="Document settings updated.")
 
 
 @chat.function(
@@ -376,7 +376,7 @@ async def move_document_to_folder(ctx, params: MoveDocumentToFolderParams) -> Ac
         await pd.move_document_to_folder(ctx, key, params.document_id, params.folder_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_MOVE_FAILED")
-    return ActionResult.success(DeleteResult(id=params.document_id, deleted=False)), summary="Move document to folder done."
+    return ActionResult.success(DeleteResult(id=params.document_id, deleted=False), summary="Move document to folder done.")
 
 
 @chat.function(
@@ -393,7 +393,7 @@ async def get_document_ownership(ctx, params: GetDocumentOwnershipParams) -> Act
         d = await pd.get_document_ownership(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_OWNERSHIP_FAILED")
-    return ActionResult.success(DocumentOwnership(document_id=params.document_id, member_id=d.get("id", "") if isinstance(d, dict) else "")), summary="Document ownership retrieved."
+    return ActionResult.success(DocumentOwnership(document_id=params.document_id, member_id=d.get("id", "") if isinstance(d, dict) else ""), summary="Document ownership retrieved.")
 
 
 @chat.function(
@@ -410,4 +410,4 @@ async def update_document_ownership(ctx, params: UpdateDocumentOwnershipParams) 
         d = await pd.update_document_ownership(ctx, key, params.document_id, params.member_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_OWNERSHIP_UPDATE_FAILED")
-    return ActionResult.success(DocumentOwnership(document_id=params.document_id, member_id=params.member_id)), summary="Document ownership updated."
+    return ActionResult.success(DocumentOwnership(document_id=params.document_id, member_id=params.member_id), summary="Document ownership updated.")

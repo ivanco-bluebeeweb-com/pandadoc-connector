@@ -41,7 +41,7 @@ async def list_templates(ctx, params: ListTemplatesParams) -> ActionResult:
     return ActionResult.success(TemplateList(items=[
         TemplateSummary(id=t.get("id", ""), name=t.get("name", ""), date_created=t.get("date_created", ""), date_modified=t.get("date_modified", ""))
         for t in items
-    ])), summary="Templates listed."
+    ]), summary="Templates listed.")
 
 
 @chat.function(
@@ -62,7 +62,7 @@ async def get_template(ctx, params: GetTemplateParams) -> ActionResult:
         id=t.get("id", ""), name=t.get("name", ""),
         tags_csv=",".join(t.get("tags", []) or []),
         date_created=t.get("date_created", ""),
-    )), summary="Template retrieved."
+    ), summary="Template retrieved.")
 
 
 @chat.function(
@@ -84,7 +84,7 @@ async def update_template(ctx, params: UpdateTemplateParams) -> ActionResult:
         t = await pd.update_template(ctx, key, params.template_id, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_TEMPLATE_UPDATE_FAILED")
-    return ActionResult.success(TemplateDetails(id=t.get("id", params.template_id), name=t.get("name", ""))), summary="Template updated."
+    return ActionResult.success(TemplateDetails(id=t.get("id", params.template_id), name=t.get("name", "")), summary="Template updated.")
 
 
 @chat.function(
@@ -101,7 +101,7 @@ async def delete_template(ctx, params: DeleteTemplateParams) -> ActionResult:
         await pd.delete_template(ctx, key, params.template_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_TEMPLATE_DELETE_FAILED")
-    return ActionResult.success(DeleteResult(id=params.template_id, deleted=True)), summary="Template deleted."
+    return ActionResult.success(DeleteResult(id=params.template_id, deleted=True), summary="Template deleted.")
 
 
 @chat.function(
@@ -118,7 +118,7 @@ async def duplicate_template(ctx, params: DuplicateTemplateParams) -> ActionResu
         t = await pd.duplicate_template(ctx, key, params.template_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_TEMPLATE_DUPLICATE_FAILED")
-    return ActionResult.success(TemplateDetails(id=t.get("id", ""), name=t.get("name", ""))), summary="Duplicate template done."
+    return ActionResult.success(TemplateDetails(id=t.get("id", ""), name=t.get("name", "")), summary="Duplicate template done.")
 
 
 @chat.function(
@@ -138,7 +138,7 @@ async def list_forms(ctx, params: ListFormsParams) -> ActionResult:
     items = resp.get("results", []) if isinstance(resp, dict) else []
     return ActionResult.success(FormList(items=[
         FormSummary(id=f.get("id", ""), name=f.get("name", ""), date_created=f.get("date_created", "")) for f in items
-    ])), summary="Forms listed."
+    ]), summary="Forms listed.")
 
 
 @chat.function(
@@ -156,7 +156,7 @@ async def get_form(ctx, params: GetFormParams) -> ActionResult:
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_FORM_NOT_FOUND")
     import json as _json
-    return ActionResult.success(FormDetails(id=f.get("id", ""), name=f.get("name", ""), fields_json=_json.dumps(f.get("fields", []) if isinstance(f, dict) else []))), summary="Form retrieved."
+    return ActionResult.success(FormDetails(id=f.get("id", ""), name=f.get("name", ""), fields_json=_json.dumps(f.get("fields", []) if isinstance(f, dict) else [])), summary="Form retrieved.")
 
 
 @chat.function(
@@ -176,7 +176,7 @@ async def list_content_library_items(ctx, params: ListContentLibraryItemsParams)
     items = resp.get("results", []) if isinstance(resp, dict) else []
     return ActionResult.success(ContentLibraryItemList(items=[
         ContentLibraryItemSummary(id=c.get("id", ""), name=c.get("name", ""), date_created=c.get("date_created", "")) for c in items
-    ])), summary="Content library items listed."
+    ]), summary="Content library items listed.")
 
 
 @chat.function(
@@ -193,7 +193,7 @@ async def get_content_library_item(ctx, params: GetContentLibraryItemParams) -> 
         c = await pd.get_content_library_item(ctx, key, params.item_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_CONTENT_LIBRARY_ITEM_NOT_FOUND")
-    return ActionResult.success(ContentLibraryItemDetails(id=c.get("id", ""), name=c.get("name", ""), tags_csv=",".join(c.get("tags", []) or []))), summary="Content library item retrieved."
+    return ActionResult.success(ContentLibraryItemDetails(id=c.get("id", ""), name=c.get("name", ""), tags_csv=",".join(c.get("tags", []) or [])), summary="Content library item retrieved.")
 
 
 @chat.function(
@@ -211,7 +211,7 @@ async def list_document_folders(ctx, params: ListDocumentFoldersParams) -> Actio
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LIST_FOLDERS_FAILED")
     items = resp if isinstance(resp, list) else (resp.get("results", []) if isinstance(resp, dict) else [])
-    return ActionResult.success(FolderList(items=[FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", "")) for f in items])), summary="Document folders listed."
+    return ActionResult.success(FolderList(items=[FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", "")) for f in items]), summary="Document folders listed.")
 
 
 @chat.function(
@@ -231,7 +231,7 @@ async def create_document_folder(ctx, params: CreateDocumentFolderParams) -> Act
         f = await pd.create_document_folder(ctx, key, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_FOLDER_CREATE_FAILED")
-    return ActionResult.success(FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", params.name))), summary="Document folder created."
+    return ActionResult.success(FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", params.name)), summary="Document folder created.")
 
 
 @chat.function(
@@ -248,7 +248,7 @@ async def rename_document_folder(ctx, params: RenameDocumentFolderParams) -> Act
         f = await pd.rename_document_folder(ctx, key, params.folder_uuid, params.name)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_FOLDER_RENAME_FAILED")
-    return ActionResult.success(FolderSummary(uuid=params.folder_uuid, name=params.name)), summary="Rename document folder done."
+    return ActionResult.success(FolderSummary(uuid=params.folder_uuid, name=params.name), summary="Rename document folder done.")
 
 
 @chat.function(
@@ -266,7 +266,7 @@ async def list_template_folders(ctx, params: ListTemplateFoldersParams) -> Actio
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LIST_TEMPLATE_FOLDERS_FAILED")
     items = resp if isinstance(resp, list) else (resp.get("results", []) if isinstance(resp, dict) else [])
-    return ActionResult.success(FolderList(items=[FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", "")) for f in items])), summary="Template folders listed."
+    return ActionResult.success(FolderList(items=[FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", "")) for f in items]), summary="Template folders listed.")
 
 
 @chat.function(
@@ -286,7 +286,7 @@ async def create_template_folder(ctx, params: CreateTemplateFolderParams) -> Act
         f = await pd.create_template_folder(ctx, key, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_TEMPLATE_FOLDER_CREATE_FAILED")
-    return ActionResult.success(FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", params.name))), summary="Template folder created."
+    return ActionResult.success(FolderSummary(uuid=f.get("uuid", f.get("id", "")), name=f.get("name", params.name)), summary="Template folder created.")
 
 
 @chat.function(
@@ -303,4 +303,4 @@ async def rename_template_folder(ctx, params: RenameTemplateFolderParams) -> Act
         f = await pd.rename_template_folder(ctx, key, params.folder_uuid, params.name)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_TEMPLATE_FOLDER_RENAME_FAILED")
-    return ActionResult.success(FolderSummary(uuid=params.folder_uuid, name=params.name)), summary="Rename template folder done."
+    return ActionResult.success(FolderSummary(uuid=params.folder_uuid, name=params.name), summary="Rename template folder done.")

@@ -36,7 +36,7 @@ async def list_contacts(ctx, params: ListContactsParams) -> ActionResult:
             first_name=c.get("first_name", "") or "", last_name=c.get("last_name", "") or "",
             company=c.get("company", "") or "",
         ) for c in items
-    ])), summary="Contacts listed."
+    ]), summary="Contacts listed.")
 
 
 @chat.function(
@@ -63,7 +63,7 @@ async def create_contact(ctx, params: CreateContactParams) -> ActionResult:
         id=resp.get("id", "") if isinstance(resp, dict) else "",
         email=params.email, first_name=params.first_name, last_name=params.last_name,
         company=params.company,
-    ), refresh_panels=["pandadoc_dashboard"]), summary="Contact created."
+    ), refresh_panels=["pandadoc_dashboard"], summary="Contact created.")
 
 
 @chat.function(
@@ -89,7 +89,7 @@ async def update_contact(ctx, params: UpdateContactParams) -> ActionResult:
         id=params.contact_id, email=(resp or {}).get("email", ""),
         first_name=(resp or {}).get("first_name", ""), last_name=(resp or {}).get("last_name", ""),
         company=(resp or {}).get("company", ""),
-    ), refresh_panels=["pandadoc_dashboard"]), summary="Contact updated."
+    ), refresh_panels=["pandadoc_dashboard"], summary="Contact updated.")
 
 
 @chat.function(
@@ -107,7 +107,7 @@ async def delete_contact(ctx, params: DeleteContactParams) -> ActionResult:
         await pd.delete_contact(ctx, key, params.contact_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_CONTACT_FAILED")
-    return ActionResult.success(DeleteResult(id=params.contact_id, deleted=True), refresh_panels=["pandadoc_dashboard"]), summary="Contact deleted."
+    return ActionResult.success(DeleteResult(id=params.contact_id, deleted=True), refresh_panels=["pandadoc_dashboard"], summary="Contact deleted.")
 
 
 @chat.function(
@@ -131,4 +131,4 @@ async def list_members(ctx, params: ListMembersParams) -> ActionResult:
             first_name=m.get("first_name", "") or "", last_name=m.get("last_name", "") or "",
             role=m.get("role", "") or "", is_active=bool(m.get("is_active", True)),
         ) for m in items
-    ])), summary="Members listed."
+    ]), summary="Members listed.")

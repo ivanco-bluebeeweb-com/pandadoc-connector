@@ -47,7 +47,7 @@ async def get_document_fields(ctx, params: GetDocumentFieldsParams) -> ActionRes
         return ActionResult.error(e.message, code="PANDADOC_GET_FIELDS_FAILED")
     fields = resp.get("fields", {}) if isinstance(resp, dict) else {}
     items = [DocumentField(field_id=k, name=k, value=str(v.get("value", "")) if isinstance(v, dict) else str(v), type=v.get("type", "") if isinstance(v, dict) else "") for k, v in fields.items()]
-    return ActionResult.success(DocumentFieldList(items=items)), summary="Document fields retrieved."
+    return ActionResult.success(DocumentFieldList(items=items), summary="Document fields retrieved.")
 
 
 @chat.function(
@@ -69,7 +69,7 @@ async def update_document_fields(ctx, params: UpdateDocumentFieldsParams) -> Act
         resp = await pd.update_document(ctx, key, params.document_id, {"fields": fields})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UPDATE_FIELDS_FAILED")
-    return ActionResult.success(DocumentField(field_id=params.document_id, name="updated", value="ok")), summary="Document fields updated."
+    return ActionResult.success(DocumentField(field_id=params.document_id, name="updated", value="ok"), summary="Document fields updated.")
 
 
 @chat.function(
@@ -93,7 +93,7 @@ async def list_document_recipients(ctx, params: ListDocumentRecipientsParams) ->
         role=r.get("role", ""), signing_order=r.get("signing_order", 0) or 0,
         has_completed=r.get("has_completed", False),
     ) for r in recips]
-    return ActionResult.success(DocumentRecipientList(items=items)), summary="Document recipients listed."
+    return ActionResult.success(DocumentRecipientList(items=items), summary="Document recipients listed.")
 
 
 @chat.function(
@@ -111,7 +111,7 @@ async def add_document_recipient(ctx, params: AddDocumentRecipientParams) -> Act
         resp = await pd.update_document(ctx, key, params.document_id, {"recipients": [{"id": params.contact_id, "kind": params.kind}]})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_ADD_RECIPIENT_FAILED")
-    return ActionResult.success(DocumentRecipient(recipient_id=params.contact_id, role=params.kind)), summary="Document recipient created."
+    return ActionResult.success(DocumentRecipient(recipient_id=params.contact_id, role=params.kind), summary="Document recipient created.")
 
 
 @chat.function(
@@ -134,7 +134,7 @@ async def update_document_recipient(ctx, params: UpdateDocumentRecipientParams) 
         resp = await pd.update_document(ctx, key, params.document_id, {"recipients": [fields]})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UPDATE_RECIPIENT_FAILED")
-    return ActionResult.success(DocumentRecipient(recipient_id=params.recipient_id)), summary="Document recipient updated."
+    return ActionResult.success(DocumentRecipient(recipient_id=params.recipient_id), summary="Document recipient updated.")
 
 
 @chat.function(
@@ -152,7 +152,7 @@ async def delete_document_recipient(ctx, params: DeleteDocumentRecipientParams) 
         await pd.update_document(ctx, key, params.document_id, {"recipients": [{"id": params.recipient_id, "delete": True}]})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_RECIPIENT_FAILED")
-    return ActionResult.success(DeleteResult(id=params.recipient_id, deleted=True)), summary="Document recipient deleted."
+    return ActionResult.success(DeleteResult(id=params.recipient_id, deleted=True), summary="Document recipient deleted.")
 
 
 @chat.function(
@@ -170,7 +170,7 @@ async def send_manual_reminder(ctx, params: SendManualReminderParams) -> ActionR
         await pd.send_manual_reminder(ctx, key, params.document_id, {"message": params.message} if params.message else {})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_SEND_REMINDER_FAILED")
-    return ActionResult.success(AutoReminderStatus(document_id=params.document_id, status="reminder_sent")), summary="Manual reminder send requested."
+    return ActionResult.success(AutoReminderStatus(document_id=params.document_id, status="reminder_sent"), summary="Manual reminder send requested.")
 
 
 @chat.function(
@@ -187,7 +187,7 @@ async def get_document_auto_reminder_settings(ctx, params: GetAutoReminderSettin
         resp = await pd.get_document_auto_reminders(ctx, key, params.document_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_GET_AUTO_REMINDERS_FAILED")
-    return ActionResult.success(AutoReminderSettings(document_id=params.document_id, enabled=bool(resp.get("enabled")) if isinstance(resp, dict) else False, settings_json=json.dumps(resp))), summary="Document auto reminder settings retrieved."
+    return ActionResult.success(AutoReminderSettings(document_id=params.document_id, enabled=bool(resp.get("enabled")) if isinstance(resp, dict) else False, settings_json=json.dumps(resp)), summary="Document auto reminder settings retrieved.")
 
 
 @chat.function(
@@ -210,7 +210,7 @@ async def update_document_auto_reminder_settings(ctx, params: UpdateAutoReminder
         resp = await pd.update_document_auto_reminders(ctx, key, params.document_id, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UPDATE_AUTO_REMINDERS_FAILED")
-    return ActionResult.success(AutoReminderSettings(document_id=params.document_id, enabled=params.enabled, settings_json=json.dumps(resp))), summary="Document auto reminder settings updated."
+    return ActionResult.success(AutoReminderSettings(document_id=params.document_id, enabled=params.enabled, settings_json=json.dumps(resp)), summary="Document auto reminder settings updated.")
 
 
 @chat.function(
@@ -228,7 +228,7 @@ async def get_document_auto_reminder_status(ctx, params: GetAutoReminderStatusPa
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_GET_REMINDER_STATUS_FAILED")
     status = resp.get("status", "") if isinstance(resp, dict) else ""
-    return ActionResult.success(AutoReminderStatus(document_id=params.document_id, status=status)), summary="Document auto reminder status retrieved."
+    return ActionResult.success(AutoReminderStatus(document_id=params.document_id, status=status), summary="Document auto reminder status retrieved.")
 
 
 @chat.function(
@@ -248,7 +248,7 @@ async def list_document_attachments(ctx, params: ListDocumentAttachmentsParams) 
     items = resp if isinstance(resp, list) else resp.get("results", []) if isinstance(resp, dict) else []
     return ActionResult.success(DocumentAttachmentList(items=[
         DocumentAttachment(id=a.get("uuid", a.get("id", "")), name=a.get("name", ""), url=a.get("url", "")) for a in items
-    ])), summary="Document attachments listed."
+    ]), summary="Document attachments listed.")
 
 
 @chat.function(
@@ -266,7 +266,7 @@ async def add_document_attachment(ctx, params: AddDocumentAttachmentParams) -> A
         resp = await pd.add_document_attachment(ctx, key, params.document_id, {"url": params.file_url, "name": params.name})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_ADD_ATTACHMENT_FAILED")
-    return ActionResult.success(DocumentAttachment(id=resp.get("uuid", "") if isinstance(resp, dict) else "", name=params.name)), summary="Document attachment created."
+    return ActionResult.success(DocumentAttachment(id=resp.get("uuid", "") if isinstance(resp, dict) else "", name=params.name), summary="Document attachment created.")
 
 
 @chat.function(
@@ -284,7 +284,7 @@ async def delete_document_attachment(ctx, params: DeleteDocumentAttachmentParams
         await pd.delete_document_attachment(ctx, key, params.document_id, params.attachment_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_ATTACHMENT_FAILED")
-    return ActionResult.success(DeleteResult(id=params.attachment_id, deleted=True)), summary="Document attachment deleted."
+    return ActionResult.success(DeleteResult(id=params.attachment_id, deleted=True), summary="Document attachment deleted.")
 
 
 @chat.function(
@@ -304,7 +304,7 @@ async def list_document_sections(ctx, params: ListDocumentSectionsParams) -> Act
     items = resp if isinstance(resp, list) else resp.get("results", []) if isinstance(resp, dict) else []
     return ActionResult.success(DocumentSectionList(items=[
         DocumentSection(id=s.get("uuid", s.get("id", "")), title=s.get("title", ""), status=s.get("status", "")) for s in items
-    ])), summary="Document sections listed."
+    ]), summary="Document sections listed.")
 
 
 @chat.function(
@@ -322,7 +322,7 @@ async def add_document_section_from_template(ctx, params: AddDocumentSectionFrom
         resp = await pd.add_document_section_from_template(ctx, key, params.document_id, {"template_uuid": params.template_uuid, "name": params.name})
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_ADD_SECTION_FAILED")
-    return ActionResult.success(DocumentSection(id=resp.get("uuid", "") if isinstance(resp, dict) else "")), summary="Document section from template created."
+    return ActionResult.success(DocumentSection(id=resp.get("uuid", "") if isinstance(resp, dict) else ""), summary="Document section from template created.")
 
 
 @chat.function(
@@ -342,7 +342,7 @@ async def list_linked_objects(ctx, params: ListLinkedObjectsParams) -> ActionRes
     items = resp if isinstance(resp, list) else resp.get("results", []) if isinstance(resp, dict) else []
     return ActionResult.success(LinkedObjectList(items=[
         LinkedObject(id=o.get("id", ""), provider=o.get("provider", ""), object_type=o.get("entity_type", "")) for o in items
-    ])), summary="Linked objects listed."
+    ]), summary="Linked objects listed.")
 
 
 @chat.function(
@@ -363,7 +363,7 @@ async def link_object_to_document(ctx, params: LinkObjectToDocumentParams) -> Ac
         })
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LINK_OBJECT_FAILED")
-    return ActionResult.success(LinkedObject(id=resp.get("id", "") if isinstance(resp, dict) else "")), summary="Link object to document done."
+    return ActionResult.success(LinkedObject(id=resp.get("id", "") if isinstance(resp, dict) else ""), summary="Link object to document done.")
 
 
 @chat.function(
@@ -381,4 +381,4 @@ async def unlink_object_from_document(ctx, params: UnlinkObjectFromDocumentParam
         await pd.unlink_object_from_document(ctx, key, params.document_id, params.linked_object_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UNLINK_OBJECT_FAILED")
-    return ActionResult.success(DeleteResult(id=params.linked_object_id, deleted=True)), summary="Unlink object from document done."
+    return ActionResult.success(DeleteResult(id=params.linked_object_id, deleted=True), summary="Unlink object from document done.")

@@ -46,7 +46,7 @@ async def list_webhooks(ctx, params: ListWebhooksParams) -> ActionResult:
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LIST_WEBHOOKS_FAILED")
     items = resp.get("results", []) if isinstance(resp, dict) else (resp if isinstance(resp, list) else [])
-    return ActionResult.success(WebhookSubscriptionList(items=[_webhook_entity(w) for w in items])), summary="Webhooks listed."
+    return ActionResult.success(WebhookSubscriptionList(items=[_webhook_entity(w) for w in items]), summary="Webhooks listed.")
 
 
 @chat.function(
@@ -63,7 +63,7 @@ async def get_webhook(ctx, params: GetWebhookParams) -> ActionResult:
         resp = await pd.get_webhook_subscription(ctx, key, params.webhook_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_GET_WEBHOOK_FAILED")
-    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else {})), summary="Webhook retrieved."
+    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else {}), summary="Webhook retrieved.")
 
 
 @chat.function(
@@ -83,7 +83,7 @@ async def create_webhook(ctx, params: CreateWebhookParams) -> ActionResult:
         resp = await pd.create_webhook_subscription(ctx, key, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_CREATE_WEBHOOK_FAILED")
-    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else payload), refresh_panels=["pandadoc_dashboard"]), summary="Webhook created."
+    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else payload), refresh_panels=["pandadoc_dashboard"], summary="Webhook created.")
 
 
 @chat.function(
@@ -109,7 +109,7 @@ async def update_webhook(ctx, params: UpdateWebhookParams) -> ActionResult:
         resp = await pd.update_webhook_subscription(ctx, key, params.webhook_id, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UPDATE_WEBHOOK_FAILED")
-    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else {"uuid": params.webhook_id, **payload}), refresh_panels=["pandadoc_dashboard"]), summary="Webhook updated."
+    return ActionResult.success(_webhook_entity(resp if isinstance(resp, dict) else {"uuid": params.webhook_id, **payload}), refresh_panels=["pandadoc_dashboard"], summary="Webhook updated.")
 
 
 @chat.function(
@@ -126,7 +126,7 @@ async def delete_webhook(ctx, params: DeleteWebhookParams) -> ActionResult:
         await pd.delete_webhook_subscription(ctx, key, params.webhook_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_WEBHOOK_FAILED")
-    return ActionResult.success(DeleteResult(id=params.webhook_id, deleted=True), refresh_panels=["pandadoc_dashboard"]), summary="Webhook deleted."
+    return ActionResult.success(DeleteResult(id=params.webhook_id, deleted=True), refresh_panels=["pandadoc_dashboard"], summary="Webhook deleted.")
 
 
 @chat.function(
@@ -144,7 +144,7 @@ async def list_webhook_event_types(ctx, params: ListWebhookEventsParams) -> Acti
         resp = await pd.list_webhook_events(ctx, key)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LIST_WEBHOOK_EVENTS_FAILED")
-    return ActionResult.success(resp if resp is not None else {}), summary="Webhook event types listed."
+    return ActionResult.success(resp if resp is not None else {}, summary="Webhook event types listed.")
 
 
 def _catalog_entity(c: dict) -> CatalogItem:
@@ -169,7 +169,7 @@ async def list_catalog_items(ctx, params: ListCatalogItemsParams) -> ActionResul
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_LIST_CATALOG_FAILED")
     items = resp.get("results", []) if isinstance(resp, dict) else (resp if isinstance(resp, list) else [])
-    return ActionResult.success(CatalogItemList(items=[_catalog_entity(c) for c in items])), summary="Catalog items listed."
+    return ActionResult.success(CatalogItemList(items=[_catalog_entity(c) for c in items]), summary="Catalog items listed.")
 
 
 @chat.function(
@@ -192,7 +192,7 @@ async def create_catalog_item(ctx, params: CreateCatalogItemParams) -> ActionRes
         resp = await pd.create_catalog_item(ctx, key, payload)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_CREATE_CATALOG_FAILED")
-    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else payload), refresh_panels=["pandadoc_dashboard"]), summary="Catalog item created."
+    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else payload), refresh_panels=["pandadoc_dashboard"], summary="Catalog item created.")
 
 
 @chat.function(
@@ -209,7 +209,7 @@ async def get_catalog_item(ctx, params: GetCatalogItemParams) -> ActionResult:
         resp = await pd.get_catalog_item(ctx, key, params.item_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_GET_CATALOG_FAILED")
-    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else {})), summary="Catalog item retrieved."
+    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else {}), summary="Catalog item retrieved.")
 
 
 @chat.function(
@@ -231,7 +231,7 @@ async def update_catalog_item(ctx, params: UpdateCatalogItemParams) -> ActionRes
         resp = await pd.update_catalog_item(ctx, key, params.item_id, fields)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_UPDATE_CATALOG_FAILED")
-    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else {"id": params.item_id, **fields}), refresh_panels=["pandadoc_dashboard"]), summary="Catalog item updated."
+    return ActionResult.success(_catalog_entity(resp if isinstance(resp, dict) else {"id": params.item_id, **fields}), refresh_panels=["pandadoc_dashboard"], summary="Catalog item updated.")
 
 
 @chat.function(
@@ -248,7 +248,7 @@ async def delete_catalog_item(ctx, params: DeleteCatalogItemParams) -> ActionRes
         await pd.delete_catalog_item(ctx, key, params.item_id)
     except pd.ClientFail as e:
         return ActionResult.error(e.message, code="PANDADOC_DELETE_CATALOG_FAILED")
-    return ActionResult.success(DeleteResult(id=params.item_id, deleted=True), refresh_panels=["pandadoc_dashboard"]), summary="Catalog item deleted."
+    return ActionResult.success(DeleteResult(id=params.item_id, deleted=True), refresh_panels=["pandadoc_dashboard"], summary="Catalog item deleted.")
 
 
 @chat.function(
@@ -272,4 +272,4 @@ async def list_api_logs(ctx, params: ListApiLogsParams) -> ActionResult:
             time=str(e.get("time", "") or ""), status=int(e.get("status", 0) or 0),
             method=str(e.get("method", "") or ""), endpoint=str(e.get("endpoint", "") or ""),
         ) for e in items
-    ])), summary="Api logs listed."
+    ]), summary="Api logs listed.")

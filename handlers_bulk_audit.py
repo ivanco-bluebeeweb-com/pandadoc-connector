@@ -58,7 +58,8 @@ async def bulk_delete_documents(ctx, params: BulkDeleteDocumentsParams) -> Actio
     return ActionResult.success(
         BulkResult(items=items, succeeded=succeeded, failed=failed),
         refresh_panels=["pandadoc_dashboard"],
-    ), summary="Bulk delete documents done."
+        summary="Bulk delete documents done.",
+    )
 
 
 @chat.function(
@@ -101,7 +102,8 @@ async def bulk_send_documents(ctx, params: BulkSendDocumentsParams) -> ActionRes
     return ActionResult.success(
         BulkResult(items=items, succeeded=succeeded, failed=failed),
         refresh_panels=["pandadoc_dashboard"],
-    ), summary="Bulk send documents done."
+        summary="Bulk send documents done.",
+    )
 
 
 @chat.function(
@@ -136,7 +138,7 @@ async def bulk_send_manual_reminders(ctx, params: BulkSendManualRemindersParams)
         except pd.ClientFail as e:
             items.append(BulkResultItem(id=doc_id, ok=False, error=e.message))
             failed += 1
-    return ActionResult.success(BulkResult(items=items, succeeded=succeeded, failed=failed)), summary="Bulk send manual reminders done."
+    return ActionResult.success(BulkResult(items=items, succeeded=succeeded, failed=failed), summary="Bulk send manual reminders done.")
 
 
 @chat.function(
@@ -213,4 +215,4 @@ async def audit_workspace_health(ctx, params: AuditWorkspaceHealthParams) -> Act
         overdue_unsigned_count=overdue_unsigned,
         documents_without_owner_count=no_owner,
         summary=summary,
-    )), summary="Workspace health audit ready."
+    ), summary="Workspace health audit ready.")
