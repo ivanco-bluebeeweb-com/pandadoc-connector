@@ -37,8 +37,7 @@ def _settings_button() -> ui.UINode:
     """The single secondary 'App settings' button -- per UI_INTERFACE_STANDARD.md,
     always the last element at the bottom of the sidebar."""
     return ui.Button(
-        "App settings", variant="secondary", size="sm", full_width=True,
-        icon="settings", on_click=ui.Call("__panel__pandadoc_settings"),
+        "App settings", variant="secondary", size="sm", icon="settings", on_click=ui.Call("__panel__pandadoc_settings"),
     )
 
 
@@ -72,6 +71,9 @@ def _connect_section() -> ui.UINode:
         ui.Button("How do I set this up?", variant="ghost", size="sm",
                   icon="HelpCircle",
                   on_click=ui.Call("__panel__pandadoc_connect_help")),
+        ui.Button("Authorize PandaDoc (OAuth 2.0)", variant="primary", size="sm", icon="login"),
+        ui.Divider(),
+        ui.Text("Or connect via Workspace API Key", variant="caption"),
         ui.Form(
             action="connect_pandadoc",
             submit_label="Verify and connect",
@@ -112,8 +114,7 @@ async def pandadoc_connect_panel(ctx, **kwargs) -> object:
         ui.Text("Connected workspaces", variant="subtitle"),
         _connections_section(connections),
         ui.Divider(),
-        ui.Button("View workspace health", variant="primary", size="sm", full_width=True,
-                  icon="FileText", on_click=ui.Call("__panel__pandadoc_center")),
+        ui.Button("View workspace health", variant="primary", size="sm", icon="FileText", on_click=ui.Call("__panel__pandadoc_center")),
         ui.Divider(),
         _connect_section(),
         ui.Divider(),
